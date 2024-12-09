@@ -39,7 +39,7 @@ pub enum PadInstruction {
     /// * Additional padding accounts
     ///
     /// Data expected by this instruction:
-    /// * WrapData
+    /// * `WrapData`
     Wrap,
 }
 
