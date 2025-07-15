@@ -4,8 +4,9 @@ use {
     solana_program_test::{processor, tokio, ProgramTest},
     solana_sdk::{
         instruction::AccountMeta, native_token::LAMPORTS_PER_SOL, pubkey::Pubkey,
-        signature::Signer, system_instruction, transaction::Transaction,
+        signature::Signer, transaction::Transaction,
     },
+    solana_system_interface::instruction as system_instruction,
     spl_instruction_padding::{instruction::wrap_instruction, processor::process},
 };
 
