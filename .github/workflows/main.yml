@@ -7,6 +7,25 @@ on:
     branches: [main]
 
 jobs:
+  format_and_lint_interface:
+    name: Format & Lint Interface
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+        with:
+          clippy: true
+          rustfmt: true
+
+      - name: Format
+        run: pnpm interface:format
+
+      - name: Lint
+        run: pnpm interface:lint
+
   format_and_lint_programs:
     name: Format & Lint Programs
     runs-on: ubuntu-latest
