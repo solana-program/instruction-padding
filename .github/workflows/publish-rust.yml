@@ -6,7 +6,7 @@ on:
       package_path:
         description: Path to directory with package to release
         required: true
-        default: 'clients/cli'
+        default: 'interface'
         type: choice
         options:
           - interface
