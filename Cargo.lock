@@ -6870,7 +6870,6 @@ dependencies = [
 name = "spl-instruction-padding"
 version = "0.3.0"
 dependencies = [
- "num_enum",
  "solana-account-info",
  "solana-cpi",
  "solana-instruction",
@@ -6881,6 +6880,19 @@ dependencies = [
  "solana-pubkey",
  "solana-sdk",
  "solana-system-interface",
+ "spl-instruction-padding-interface",
+ "static_assertions",
+]
+
+[[package]]
+name = "spl-instruction-padding-interface"
+version = "0.1.0"
+dependencies = [
+ "num_enum",
+ "solana-instruction",
+ "solana-program",
+ "solana-program-error",
+ "solana-pubkey",
  "static_assertions",
 ]
 

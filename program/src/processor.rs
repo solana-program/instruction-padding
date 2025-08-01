@@ -1,10 +1,10 @@
 use {
-    crate::instruction::{PadInstruction, WrapData},
     solana_account_info::AccountInfo,
     solana_cpi::invoke,
     solana_instruction::{AccountMeta, Instruction},
     solana_program_error::{ProgramError, ProgramResult},
     solana_pubkey::Pubkey,
+    spl_instruction_padding_interface::instruction::{PadInstruction, WrapData},
     std::convert::TryInto,
 };
 
