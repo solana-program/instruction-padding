@@ -1,6 +1,6 @@
 [package]
 name = "spl-instruction-padding-interface"
-version = "0.1.0"
+version = "1.0.0"
 description = "Solana Program Library Instruction Padding Interface"
 authors = ["Anza Maintainers <maintainers@anza.xyz>"]
 repository = "https://github.com/solana-program/instruction-padding"
