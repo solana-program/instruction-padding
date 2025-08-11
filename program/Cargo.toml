@@ -19,7 +19,7 @@ solana-instruction = { version = "2.2.1", features = ["std"] }
 solana-program-entrypoint = "2.3.0"
 solana-program-error = "2.2.2"
 solana-pubkey = "2.2.1"
-spl-instruction-padding-interface = { path = "../interface" }
+spl-instruction-padding-interface = { version = "0.1.0" }
 
 [dev-dependencies]
 solana-program = "2.3.0"
