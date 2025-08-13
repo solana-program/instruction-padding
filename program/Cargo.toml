@@ -25,7 +25,7 @@ spl-instruction-padding-interface = { version = "0.1.0" }
 solana-program = "3.0.0"
 solana-program-test = "2.3.7"
 solana-sdk = "2.2.1"
-solana-system-interface = "1"
+solana-system-interface = "2"
 static_assertions = "1.1.0"
 
 [lib]
