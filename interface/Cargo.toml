@@ -9,7 +9,7 @@ homepage = "https://solana.com/"
 edition = "2021"
 
 [dependencies]
-num_enum = "0.7.4"
+num_enum = "0.7.5"
 solana-instruction = { version = "3.0.0", features = ["std"] }
 solana-program-error = "3.0.0"
 solana-pubkey = "3.0.0"
