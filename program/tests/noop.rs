@@ -1,10 +1,9 @@
-#![cfg(feature = "test-sbf")]
-
 use {
+    solana_instruction::AccountMeta,
     solana_program_test::{processor, tokio, ProgramTest},
-    solana_sdk::{
-        instruction::AccountMeta, pubkey::Pubkey, signature::Signer, transaction::Transaction,
-    },
+    solana_pubkey::Pubkey,
+    solana_signer::Signer,
+    solana_transaction::Transaction,
     spl_instruction_padding::{instruction::noop, processor::process},
 };
 

@@ -1,12 +1,11 @@
-#![cfg(feature = "test-sbf")]
-
 use {
+    solana_instruction::AccountMeta,
+    solana_native_token::LAMPORTS_PER_SOL,
     solana_program_test::{processor, tokio, ProgramTest},
-    solana_sdk::{
-        instruction::AccountMeta, native_token::LAMPORTS_PER_SOL, pubkey::Pubkey,
-        signature::Signer, transaction::Transaction,
-    },
+    solana_pubkey::Pubkey,
+    solana_signer::Signer,
     solana_system_interface::instruction as system_instruction,
+    solana_transaction::Transaction,
     spl_instruction_padding::{instruction::wrap_instruction, processor::process},
 };
 
