@@ -17,7 +17,7 @@ solana-cpi = "3.0.0"
 solana-instruction = { version = "3.0.0", features = ["std"] }
 solana-program-entrypoint = "3.0.0"
 solana-program-error = "3.0.0"
-solana-pubkey = "3.0.0"
+solana-pubkey = "4.0.0"
 spl-instruction-padding-interface = { version = "1.0.0", path = "../interface" }
 
 [dev-dependencies]
