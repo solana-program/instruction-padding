@@ -24,7 +24,7 @@ spl-instruction-padding-interface = { version = "1.0.0", path = "../interface" }
 solana-native-token = "3.0.0"
 solana-program-test = "3.0.10"
 solana-signer = "3.0.0"
-solana-system-interface = "2"
+solana-system-interface = "3"
 solana-transaction = "3.0.0"
 static_assertions = "1.1.0"
 
