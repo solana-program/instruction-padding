@@ -12,20 +12,19 @@ edition = "2021"
 no-entrypoint = []
 
 [dependencies]
-solana-account-info = "3.0.0"
-solana-cpi = "3.0.0"
-solana-instruction = { version = "3.0.0", features = ["std"] }
-solana-program-entrypoint = "3.0.0"
+solana-account-info = "3.1.0"
+solana-cpi = "3.1.0"
+solana-instruction = { version = "3.1.0", features = ["std"] }
+solana-program-entrypoint = "3.1.0"
 solana-program-error = "3.0.0"
-solana-pubkey = "3.0.0"
+solana-pubkey = "4.0.0"
 spl-instruction-padding-interface = { version = "1.0.0", path = "../interface" }
 
 [dev-dependencies]
+mollusk-svm = "0.7.0"
+solana-account = "3.0.0"
 solana-native-token = "3.0.0"
-solana-program-test = "3.0.10"
-solana-signer = "3.0.0"
-solana-system-interface = "2"
-solana-transaction = "3.0.0"
+solana-system-interface = { version = "3", features = ["bincode"] }
 static_assertions = "1.1.0"
 
 [lib]
