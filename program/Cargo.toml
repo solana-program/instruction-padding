@@ -15,7 +15,7 @@ no-entrypoint = []
 solana-account-info = "3.1.0"
 solana-cpi = "3.1.0"
 solana-instruction = { version = "3.1.0", features = ["std"] }
-solana-program-entrypoint = "3.1.0"
+solana-program-entrypoint = "3.1.1"
 solana-program-error = "3.0.0"
 solana-pubkey = "4.0.0"
 spl-instruction-padding-interface = { version = "1.0.0", path = "../interface" }
