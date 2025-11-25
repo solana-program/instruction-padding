@@ -1,37 +1,35 @@
 use {
+    mollusk_svm::{result::Check, Mollusk},
+    solana_account::Account,
     solana_instruction::AccountMeta,
-    solana_program_test::{processor, tokio, ProgramTest},
     solana_pubkey::Pubkey,
-    solana_signer::Signer,
-    solana_transaction::Transaction,
-    spl_instruction_padding::{instruction::noop, processor::process},
+    spl_instruction_padding::instruction::noop,
 };
 
-#[tokio::test]
-async fn success_with_noop() {
+#[test]
+fn success_with_noop() {
     let program_id = Pubkey::new_unique();
-    let program_test = ProgramTest::new("spl_instruction_padding", program_id, processor!(process));
+    let mollusk = Mollusk::new(&program_id, "spl_instruction_padding");
 
-    let context = program_test.start_with_context().await;
+    let first_address = Pubkey::new_unique();
+    let second_address = Pubkey::new_unique();
+    let third_address = Pubkey::new_unique();
 
     let padding_accounts = vec![
-        AccountMeta::new_readonly(Pubkey::new_unique(), false),
-        AccountMeta::new_readonly(Pubkey::new_unique(), false),
-        AccountMeta::new_readonly(Pubkey::new_unique(), false),
+        AccountMeta::new_readonly(first_address, false),
+        AccountMeta::new_readonly(second_address, false),
+        AccountMeta::new_readonly(third_address, false),
     ];
 
     let padding_data = 800;
 
-    let transaction = Transaction::new_signed_with_payer(
-        &[noop(program_id, padding_accounts, padding_data).unwrap()],
-        Some(&context.payer.pubkey()),
-        &[&context.payer],
-        context.last_blockhash,
+    mollusk.process_and_validate_instruction(
+        &noop(program_id, padding_accounts, padding_data).unwrap(),
+        &[
+            (first_address, Account::default()),
+            (second_address, Account::default()),
+            (third_address, Account::default()),
+        ],
+        &[Check::success()],
     );
-
-    context
-        .banks_client
-        .process_transaction(transaction)
-        .await
-        .unwrap();
 }

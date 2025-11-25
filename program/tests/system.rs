@@ -1,62 +1,58 @@
 use {
+    mollusk_svm::{result::Check, Mollusk},
+    solana_account::Account,
     solana_instruction::AccountMeta,
     solana_native_token::LAMPORTS_PER_SOL,
-    solana_program_test::{processor, tokio, ProgramTest},
     solana_pubkey::Pubkey,
-    solana_signer::Signer,
     solana_system_interface::instruction as system_instruction,
-    solana_transaction::Transaction,
-    spl_instruction_padding::{instruction::wrap_instruction, processor::process},
+    spl_instruction_padding::instruction::wrap_instruction,
 };
 
-#[tokio::test]
-async fn success_with_padded_transfer_data() {
+#[test]
+fn success_with_padded_transfer_data() {
     let program_id = Pubkey::new_unique();
-    let program_test = ProgramTest::new("spl_instruction_padding", program_id, processor!(process));
+    let mollusk = Mollusk::new(&program_id, "spl_instruction_padding");
 
-    let context = program_test.start_with_context().await;
+    let from = Pubkey::new_unique();
+    let from_account = Account {
+        lamports: LAMPORTS_PER_SOL * 2,
+        ..Default::default()
+    };
     let to = Pubkey::new_unique();
 
     let transfer_amount = LAMPORTS_PER_SOL;
-    let transfer_instruction =
-        system_instruction::transfer(&context.payer.pubkey(), &to, transfer_amount);
+    let transfer_instruction = system_instruction::transfer(&from, &to, transfer_amount);
 
+    let first_padding_address = Pubkey::new_unique();
+    let second_padding_address = Pubkey::new_unique();
+    let third_padding_address = Pubkey::new_unique();
     let padding_accounts = vec![
-        AccountMeta::new_readonly(Pubkey::new_unique(), false),
-        AccountMeta::new_readonly(Pubkey::new_unique(), false),
-        AccountMeta::new_readonly(Pubkey::new_unique(), false),
+        AccountMeta::new_readonly(first_padding_address, false),
+        AccountMeta::new_readonly(second_padding_address, false),
+        AccountMeta::new_readonly(third_padding_address, false),
     ];
 
     let padding_data = 800;
 
-    let transaction = Transaction::new_signed_with_payer(
-        &[wrap_instruction(
+    mollusk.process_and_validate_instruction(
+        &wrap_instruction(
             program_id,
             transfer_instruction,
             padding_accounts,
             padding_data,
         )
-        .unwrap()],
-        Some(&context.payer.pubkey()),
-        &[&context.payer],
-        context.last_blockhash,
-    );
-
-    context
-        .banks_client
-        .process_transaction(transaction)
-        .await
-        .unwrap();
-
-    // make sure the transfer went through
-    assert_eq!(
-        transfer_amount,
-        context
-            .banks_client
-            .get_account(to)
-            .await
-            .unwrap()
-            .unwrap()
-            .lamports
+        .unwrap(),
+        &[
+            (from, from_account),
+            (to, Account::default()),
+            mollusk_svm::program::keyed_account_for_system_program(),
+            (first_padding_address, Account::default()),
+            (second_padding_address, Account::default()),
+            (third_padding_address, Account::default()),
+        ],
+        &[
+            Check::success(),
+            Check::account(&to).lamports(transfer_amount).build(),
+        ],
     );
 }
