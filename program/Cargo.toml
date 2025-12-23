@@ -22,7 +22,7 @@ spl-instruction-padding-interface = { version = "1.0.0", path = "../interface" }
 
 [dev-dependencies]
 mollusk-svm = "0.7.0"
-solana-account = "3.0.0"
+solana-account = "3.3.0"
 solana-native-token = "3.0.0"
 solana-system-interface = { version = "3", features = ["bincode"] }
 static_assertions = "1.1.0"
