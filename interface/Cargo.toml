@@ -11,7 +11,7 @@ edition = "2021"
 [dependencies]
 num_enum = "0.7.6"
 solana-instruction = { version = "3.1.0", features = ["std"] }
-solana-program-error = "3.0.0"
+solana-program-error = "3.0.1"
 solana-pubkey = "4.0.0"
 
 [dev-dependencies]
