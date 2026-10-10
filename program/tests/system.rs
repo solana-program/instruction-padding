@@ -3,6 +3,7 @@ use {
     solana_account::Account,
     solana_instruction::AccountMeta,
     solana_native_token::LAMPORTS_PER_SOL,
+    solana_program_error::ProgramError,
     solana_pubkey::Pubkey,
     solana_system_interface::instruction as system_instruction,
     spl_instruction_padding::instruction::wrap_instruction,
@@ -54,5 +55,55 @@ fn success_with_padded_transfer_data() {
             Check::success(),
             Check::account(&to).lamports(transfer_amount).build(),
         ],
+    );
+}
+
+#[test]
+fn fail_wrap_with_truncated_instruction_data() {
+    let program_id = Pubkey::new_unique();
+    let mollusk = Mollusk::new(&program_id, "spl_instruction_padding");
+
+    let from = Pubkey::new_unique();
+    let from_account = Account {
+        lamports: LAMPORTS_PER_SOL * 2,
+        ..Default::default()
+    };
+    let to = Pubkey::new_unique();
+
+    let transfer_instruction = system_instruction::transfer(&from, &to, LAMPORTS_PER_SOL);
+    let mut instruction = wrap_instruction(program_id, transfer_instruction, vec![], 0).unwrap();
+    instruction.data.truncate(instruction.data.len() - 1);
+
+    mollusk.process_and_validate_instruction(
+        &instruction,
+        &[
+            (from, from_account),
+            (to, Account::default()),
+            mollusk_svm::program::keyed_account_for_system_program(),
+        ],
+        &[Check::err(ProgramError::InvalidInstructionData)],
+    );
+}
+
+#[test]
+fn fail_wrap_without_program_account() {
+    let program_id = Pubkey::new_unique();
+    let mollusk = Mollusk::new(&program_id, "spl_instruction_padding");
+
+    let from = Pubkey::new_unique();
+    let from_account = Account {
+        lamports: LAMPORTS_PER_SOL * 2,
+        ..Default::default()
+    };
+    let to = Pubkey::new_unique();
+
+    let transfer_instruction = system_instruction::transfer(&from, &to, LAMPORTS_PER_SOL);
+    let mut instruction = wrap_instruction(program_id, transfer_instruction, vec![], 0).unwrap();
+    instruction.accounts.pop();
+
+    mollusk.process_and_validate_instruction(
+        &instruction,
+        &[(from, from_account), (to, Account::default())],
+        &[Check::err(ProgramError::NotEnoughAccountKeys)],
     );
 }
