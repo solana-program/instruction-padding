@@ -30,7 +30,10 @@ pub fn process(
             let mut data = Vec::with_capacity(instruction_size as usize);
             data.extend_from_slice(instruction_data);
 
-            let program_id = *account_infos[num_accounts as usize].key;
+            let program_id = *account_infos
+                .get(num_accounts as usize)
+                .ok_or(ProgramError::NotEnoughAccountKeys)?
+                .key;
 
             let accounts = account_infos
                 .iter()

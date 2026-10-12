@@ -70,7 +70,9 @@ impl<'a> WrapData<'a> {
         let (num_accounts, rest) = unpack_u32(data)?;
         let (instruction_size, rest) = unpack_u32(rest)?;
 
-        let (instruction_data, _rest) = rest.split_at(instruction_size as usize);
+        let instruction_data = rest
+            .get(..instruction_size as usize)
+            .ok_or(ProgramError::InvalidInstructionData)?;
         Ok(Self {
             num_accounts,
             instruction_size,
