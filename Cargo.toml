@@ -3,13 +3,13 @@ resolver = "2"
 members = ["interface", "program"]
 
 [workspace.metadata.cli]
-solana = "3.0.0"
+solana = "4.3.2"
 
 # Specify Rust toolchains for rustfmt, clippy, and build.
 # Any unprovided toolchains default to stable.
 [workspace.metadata.toolchains]
-format = "nightly-2025-02-16"
-lint = "nightly-2025-02-16"
+format = "nightly-2026-07-16"
+lint = "nightly-2026-07-16"
 
 [workspace.metadata.spellcheck]
 config = "scripts/spellcheck.toml"
