@@ -1794,12 +1794,10 @@ dependencies = [
 
 [[package]]
 name = "solana-account-info"
-version = "3.1.1"
+version = "3.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9cf16495d9eb53e3d04e72366a33bb1c20c24e78c171d8b8f5978357b63ae95"
+checksum = "57ad0fe88ccbdba196bb7657534e9caf69397e9b503371261eebd9ad1d7a9ed7"
 dependencies = [
- "bincode",
- "serde_core",
  "solana-address 2.9.0",
  "solana-program-error",
  "solana-program-memory",
@@ -2341,9 +2339,9 @@ dependencies = [
 
 [[package]]
 name = "solana-program"
-version = "5.2.0"
+version = "6.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fac211a0be42c898d2288daee1fae5b592fabe76896ac34c51532063e3c1e14c"
+checksum = "dbae54c526111ed943f320e12aab9e323669a34762cbe50c1368c487ee78d4a9"
 dependencies = [
  "solana-account-info",
  "solana-big-mod-exp",

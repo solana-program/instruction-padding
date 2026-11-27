@@ -15,7 +15,7 @@ solana-program-error = "3.0.1"
 solana-pubkey = "4.0.0"
 
 [dev-dependencies]
-solana-program = "5.2.0"
+solana-program = "6.0.0"
 static_assertions = "1.1.0"
 
 [lib]
